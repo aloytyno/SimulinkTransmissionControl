@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<testsuites>
+  <testsuite errors="0" failures="0" name="TestRollAxisAutopilotHarness" skipped="0" tests="2" time="5.0184">
+    <testcase classname="TestRollAxisAutopilotHarness" name="harnessSimulationLogsExpectedSignals" time="4.2496"/>
+    <testcase classname="TestRollAxisAutopilotHarness" name="autopilotModelUsesEmbeddedCoderTarget" time="0.76872"/>
+  </testsuite>
+</testsuites>

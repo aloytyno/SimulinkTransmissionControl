@@ -1,0 +1,36 @@
+name: MATLAB CI
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+
+jobs:
+  ci:
+    runs-on: windows-latest
+    env:
+      MLM_LICENSE_TOKEN: ${{ secrets.MLM_LICENSE_TOKEN }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: matlab-actions/setup-matlab@v2
+        with:
+          release: R2026a
+          products: |
+            Simulink
+            Simulink_Coder
+            Embedded_Coder
+
+      - uses: matlab-actions/run-build@v2
+        with:
+          tasks: ci
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: matlab-build-artifacts
+          path: |
+            build/test-results
+            build/codegen
