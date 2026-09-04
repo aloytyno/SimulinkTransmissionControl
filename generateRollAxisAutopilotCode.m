@@ -6,13 +6,8 @@ cacheRoot = fullfile(buildRoot,"cache");
 
 assertInstalledProducts(["Simulink Coder","Embedded Coder"]);
 
-if ~isfolder(codegenRoot)
-    mkdir(codegenRoot);
-end
-
-if ~isfolder(cacheRoot)
-    mkdir(cacheRoot);
-end
+resetFolder(codegenRoot);
+resetFolder(cacheRoot);
 
 originalConfig = Simulink.fileGenControl("getConfig");
 cleanupConfig = onCleanup(@() Simulink.fileGenControl( ...
@@ -76,4 +71,12 @@ if bdIsLoaded(modelName)
         "GenCodeOnly",settings.GenCodeOnly, ...
         "GenerateMakefile",settings.GenerateMakefile);
 end
+end
+
+function resetFolder(folderPath)
+if isfolder(folderPath)
+    rmdir(folderPath,"s");
+end
+
+mkdir(folderPath);
 end
