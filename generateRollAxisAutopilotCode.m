@@ -28,6 +28,12 @@ Simulink.fileGenControl( ...
 
 load_system("RollAxisAutopilot");
 cleanupModel = onCleanup(@() localCloseModel("RollAxisAutopilot"));
+originalGenCodeOnly = string(get_param("RollAxisAutopilot","GenCodeOnly"));
+cleanupSettings = onCleanup(@() set_param( ...
+    "RollAxisAutopilot", ...
+    "GenCodeOnly",originalGenCodeOnly));
+
+set_param("RollAxisAutopilot","GenCodeOnly","on");
 slbuild("RollAxisAutopilot");
 
 artifacts = struct( ...
@@ -37,6 +43,7 @@ artifacts = struct( ...
     "GeneratedModelFolder",fullfile(codegenRoot,"RollAxisAutopilot_ert_rtw"));
 
 clear cleanupConfig
+clear cleanupSettings
 clear cleanupModel
 end
 
